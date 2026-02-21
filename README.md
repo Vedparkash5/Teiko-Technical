@@ -43,20 +43,20 @@ I compared the cell population relative frequencies between responders and non-r
 **Dataframe Creation**<br>
 I joined the 2 tables by subject and filtered it by the constraints set by Bob. Then created a new datafame with the filtered data.<br>
 
-Then, I compared the mean and variance statics between responders and non-responders. To further this exploration, I created a boxplot comparing the data distribution between responders and non-responders for each cell type.<br>
+I compared the mean and variance statics between responders and non-responders. To further this exploration, I created a boxplot comparing the data distribution between responders and non-responders for each cell type.<br>
 
-**Statistical tests:**<br>
+**Statistical Tests:**<br>
 First, in order to determine what statistical tests to perform, I analyzed the distribution of data for all data pools using the Shapiro-Wilk Normality Test. The data is mostly not normally distributed. <br>
 
 I chose to perform 3 analytics tests that work great for data that is not uniformally distributed between 2 independent groups. Mann-Whitney and Brunner-Munzel tests are perfect for this. I also did a Welch's T test t because it evaluates the actual values, not just distributions.<br>
 
 Additionally, because there are 5 cell counts that we are testing, we have to apply the Bonferroni correction to adjust the threshold from 0.05 to 0.01 for 5 simultaneous comparisions.<br>
 
-The key conclusions we found is that the results are unconclusive with the current data pool, non of the tests passed under the Bonferroni threshold. The cd4_t cell was the only cell population that came close to the threshold with values 0f 0.013 for the Mann-Whitney and Brunner-Munzel tests, it a passing score for the Welch's T test. This warrants further investigation in a larger cohort.<br>
+The key conclusions I found is that the results are unconclusive with the current data pool, non of the tests passed under the Bonferroni threshold. The cd4_t cell was the only cell population that came close to the threshold with values 0f 0.013 for the Mann-Whitney and Brunner-Munzel tests, it has a passing score for the Welch's T test. This warrants further investigation. cd4_t cell also had the largest average population so maybe more indept research needs to be performed on different aspects of the cell type in patients, especially relating to the effectiveness of the medicines.<br>
 
 
 ### Part 4 — Baseline Subset Tests<br>
-Analysis restricted to baseline samples was very straight forward. I extracted the data from the database by joining the 2 tables and filtering out the specifications of melanoma patients that were treated with miraclib at time = 0. Once the dataframe was made, for each request for for data on samples per project, subjects per response, and subjects per gender was a simple grouping and counting function.<br>
+Analysis restricted to baseline samples was very straight forward. I extracted the data from the database by joining the 2 tables and filtering out the specifications of melanoma patients that were treated with miraclib at time = 0. Once the dataframe was made, for each request for data on samples per project, subjects per response, and subjects per gender was a simple grouping and counting function.<br>
 
 ### Dashboard (`dashboard.py`)<br>
 I built the dashboard as a single-page scrollable Streamlit report organized as a knowledge journey through seven sections: The Data → Cell Population Overview → Responders vs. Non-Responders → Statistical Analysis → Baseline Cohort → Key Findings → Future Directions. I built the dashboard by mixing computation with markup html code chunks in order to make the dashboard informative yet a little asthetic. I still kept the styling very professional similar to a Jupyter notebook. 
