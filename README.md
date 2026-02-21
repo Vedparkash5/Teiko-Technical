@@ -34,7 +34,7 @@ In terms of scalability, this system allows the scientists (Bob and Yah) to perf
 ## Analysis Overview
 
 ### Part 1 — Data Loading (`load_data.py`)
-Reads `cell-count.csv` and loads it into a normalized SQLite database. Each subject is inserted once into `subjects`; each sample row is inserted into `samples` with a foreign key reference.
+Read `cell-count.csv` and loads it into a normalized SQLite database. Each subject is inserted once into `subjects`; each sample row is inserted into `samples` with a foreign key reference.
 
 ### Part 2 — Frequency Table (`analysis.py`)
 First, I extracted the data from the Database and created two dataframes for each table. I added a total_count column for each cell type for each sample. Then for each sample, I calculated the relative frequency of each immune cell population as a percentage of the total cell count across all five populations. Output is a table with one row per population per sample.
