@@ -52,11 +52,11 @@ st.markdown("""
 DB_PATH = "cell_counts.db"
 POPULATIONS = ["b_cell", "cd8_t_cell", "cd4_t_cell", "nk_cell", "monocyte"]
 POPULATION_LABELS = {
-    "b_cell": "B Cell", "cd8_t_cell": "CD8+ T Cell", "cd4_t_cell": "CD4+ T Cell",
+    "b_cell": "B Cell", "cd8_t_cell": "CD8 T Cell", "cd4_t_cell": "CD4 T Cell",
     "nk_cell": "NK Cell", "monocyte": "Monocyte"
 }
 POP_COLORS = {
-    "B Cell": "#2563eb", "CD8+ T Cell": "#16a34a", "CD4+ T Cell": "#dc2626",
+    "B Cell": "#2563eb", "CD8 T Cell": "#16a34a", "CD4 T Cell": "#dc2626",
     "NK Cell": "#d97706", "Monocyte": "#7c3aed"
 }
 RESP_COLOR     = "#2563eb"
@@ -161,7 +161,7 @@ samples_df, subjects_df, melanoma_df, baseline_df, avg_bcell = load_all_data()
 freq_df       = build_frequency_table(samples_df)
 melanoma_freq = build_melanoma_freq(melanoma_df)
 stats_df, corrected_threshold = run_statistics(melanoma_freq)
-cd4_row     = stats_df[stats_df["Population"] == "CD4+ T Cell"].iloc[0]
+cd4_row     = stats_df[stats_df["Population"] == "CD4 T Cell"].iloc[0]
 n_resp_base = baseline_df.drop_duplicates("subject")[baseline_df.drop_duplicates("subject")["response"] == "yes"].shape[0]
 n_non_base  = baseline_df.drop_duplicates("subject")[baseline_df.drop_duplicates("subject")["response"] == "no"].shape[0]
 
@@ -285,7 +285,7 @@ fig_avg.update_layout(
 )
 fig_avg.update_yaxes(range=[0, avg_pop["mean"].max() * 1.3])
 st.plotly_chart(fig_avg, use_container_width=True)
-st.markdown('<div class="method-note">Error bars represent ± 1 standard deviation. CD4+ T cells account for the largest share of immune cells on average, followed by CD8+ T cells and monocytes.</div>', unsafe_allow_html=True)
+st.markdown('<div class="method-note">Error bars represent ± 1 standard deviation. CD4 T cells account for the largest share of immune cells on average, followed by CD8 T cells and monocytes.</div>', unsafe_allow_html=True)
 
 st.markdown('<hr class="divider"/>', unsafe_allow_html=True)
 
@@ -419,12 +419,12 @@ st.markdown(f"""
     this dataset alone.
 </div>
 <div class="finding-box">
-    <strong>Finding 2 — CD4+ T Cells Show the Strongest Trend</strong>
-    CD4+ T cells returned the lowest p-value across all three statistical tests:
+    <strong>Finding 2 — CD4 T Cells Show the Strongest Trend</strong>
+    CD4 T cells returned the lowest p-value across all three statistical tests:
     Mann-Whitney p = {cd4_row['Mann-Whitney p']}, Brunner-Munzel p = {cd4_row['Brunner-Munzel p']},
     Welch's T p = {cd4_row["Welch's T p"]}. The Welch's test reaches significance even after
     Bonferroni correction. The consistency across three independent tests strengthens
-    the case for CD4+ T cells as a candidate biomarker.
+    the case for CD4 T cells as a candidate biomarker.
 </div>
 <div class="finding-box">
     <strong>Finding 3 — Effect Sizes Are Small Across All Populations</strong>
@@ -518,14 +518,14 @@ st.markdown('<div class="section-title">Future Directions</div>', unsafe_allow_h
 st.markdown("""
 <div class="narrative">
     While no definitive biomarker was identified in this analysis, the findings provide a
-    clear roadmap for next steps. The CD4+ T cell signal is worth pursuing with additional
+    clear roadmap for next steps. The CD4 T cell signal is worth pursuing with additional
     rigor and a larger dataset.
 </div>
 """, unsafe_allow_html=True)
 
 f1, f2, f3, f4 = st.columns(4)
 futures = [
-    ("01", "Expand the Cohort", "Increase sample size to improve statistical power. A larger cohort would allow the CD4+ T cell trend (p = 0.0134) to potentially reach robust significance after correction."),
+    ("01", "Expand the Cohort", "Increase sample size to improve statistical power. A larger cohort would allow the CD4 T cell trend (p = 0.0134) to potentially reach robust significance after correction."),
     ("02", "Longitudinal Analysis", "Examine how cell population frequencies change across timepoints. Treatment-induced changes over time may be more predictive than baseline values alone."),
     ("03", "Multivariate Modeling", "Build a machine learning model using all five population frequencies simultaneously. A combination may predict response better than any single biomarker."),
 ]
