@@ -10,13 +10,15 @@ By Vedparkash Singh
 
 ### GitHub Codespaces 
 
-1. Open Github Codespaces from the repo 
-4. The database will be created by running `python3 load_data.py`
-5. Run the dashboard:
+1. Open Github Codespaces from the repo
+2. The necassary files should auto download.
+3. The database will be created by running `python3 load_data.py`
+4. Run the dashboard:
    ```bash
    python -m streamlit run dashboard.py
    ```
-6. Analysis code for Parts 2-4 can be found on analysis.ipynb Jupyter notebook 
+   You should see a popup on the bottom right corner which says 'Your application running on port 8501 is available'. Click the green button that says open in browser. 
+5. Analysis code for Parts 2-4 can be found on analysis.ipynb Jupyter notebook 
 
 ---
 
