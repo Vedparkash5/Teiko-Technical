@@ -171,14 +171,14 @@ n_non_base  = baseline_df.drop_duplicates("subject")[baseline_df.drop_duplicates
 st.markdown("""
 <div class="cover">
     <div class="cover-tag">Clinical Trial Analysis Report</div>
-    <div class="cover-title">Miraclib — Immune Cell Population Analysis</div>
+    <div class="cover-title">Immune Cell Population Analysis For Testing Medicine Effectiveness</div>
     <div class="cover-subtitle">
-        An end-to-end analysis of immune cell dynamics across melanoma and carcinoma
-        patient cohorts, evaluating how miraclib affects immune composition and identifying
+        An analysis of immune cell dynamics across melanoma and carcinoma
+        patient cohorts, evaluating how different medicine affects immune composition and identifying
         cell populations that may predict treatment response.
     </div>
     <div class="cover-meta">
-        Prepared for: Bob Loblaw, Loblaw Bio &nbsp;|&nbsp; Drug Candidate: Miraclib &nbsp;|&nbsp; Sample Type: PBMC
+        By Vedparkash Singh
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -190,13 +190,18 @@ st.markdown('<div class="section-number">Section 01</div>', unsafe_allow_html=Tr
 st.markdown('<div class="section-title">The Data</div>', unsafe_allow_html=True)
 st.markdown("""
 <div class="narrative">
-    The dataset contains immune cell counts across five populations — B cells, CD8+ T cells,
-    CD4+ T cells, NK cells, and monocytes — measured from patient blood samples (PBMC) across
-    multiple timepoints. Patient metadata including condition, treatment, and response status
-    are stored in a relational SQLite database with two tables: <code>subjects</code> for
+    The dataset contains immune cell counts across five populations from patient blood samples across
+    multiple timepoints. Patient data includes condition, treatment, and response status as well as other demographics.
+    The data is stored in a relational SQLite database with two tables: <code>subjects</code> for
     patient-level demographics and <code>samples</code> for sample-level measurements.
 </div>
 """, unsafe_allow_html=True)
+
+st.markdown('<div class="section-title">Samples Dataframe</div>', unsafe_allow_html=True)
+st.dataframe(samples_df)
+
+st.markdown('<div class="section-title">Subjects Dataframe</div>', unsafe_allow_html=True)
+st.dataframe(subjects_df)
 
 c1, c2, c3, c4, c5 = st.columns(5)
 kpis = [
@@ -240,7 +245,6 @@ with col_b:
         margin=dict(l=10, r=10, t=50, b=10)
     )
     st.plotly_chart(fig_resp, use_container_width=True)
-
 st.markdown('<hr class="divider"/>', unsafe_allow_html=True)
 
 # ════════════════════════════════════════════════════════════════════════════════
@@ -359,7 +363,7 @@ fig_bar.add_trace(go.Bar(
 for i, p in enumerate(p_values):
     max_val = max(resp_means[i] + resp_stds[i], non_means[i] + non_stds[i])
     if p < 0.05:
-        fig_bar.add_annotation(x=bar_labels[i], y=max_val + 1.5, text="*",
+        fig_bar.add_annotation(x=bar_labels[i], y=max_val + 1.5, text="",
                                showarrow=False, font=dict(size=20, color="#111827"))
 fig_bar.update_layout(
     **CHART_LAYOUT,
@@ -404,6 +408,34 @@ st.markdown(f"""
 
 st.markdown('<hr class="divider"/>', unsafe_allow_html=True)
 
+st.markdown('<div class="section-title">Key Findings</div>', unsafe_allow_html=True)
+st.markdown(f"""
+<div class="finding-box">
+    <strong>Finding 1 — No Population Reaches Significance After Correction</strong>
+    After applying Bonferroni correction for five simultaneous comparisons (threshold:
+    p &lt; {corrected_threshold:.4f}), no cell population showed a statistically significant
+    difference in relative frequency between responders and non-responders. This means we
+    cannot yet definitively identify a single immune biomarker of miraclib response from
+    this dataset alone.
+</div>
+<div class="finding-box">
+    <strong>Finding 2 — CD4+ T Cells Show the Strongest Trend</strong>
+    CD4+ T cells returned the lowest p-value across all three statistical tests:
+    Mann-Whitney p = {cd4_row['Mann-Whitney p']}, Brunner-Munzel p = {cd4_row['Brunner-Munzel p']},
+    Welch's T p = {cd4_row["Welch's T p"]}. The Welch's test reaches significance even after
+    Bonferroni correction. The consistency across three independent tests strengthens
+    the case for CD4+ T cells as a candidate biomarker.
+</div>
+<div class="finding-box">
+    <strong>Finding 3 — Effect Sizes Are Small Across All Populations</strong>
+    Effect sizes ranged from 0.012 to 0.064, indicating that while statistical trends exist,
+    the magnitude of difference between groups is modest. No single population is a strong
+    standalone predictor of response in this dataset.
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown('<hr class="divider"/>', unsafe_allow_html=True)
+
 # ════════════════════════════════════════════════════════════════════════════════
 # SECTION 5 — BASELINE SUBSET
 # ════════════════════════════════════════════════════════════════════════════════
@@ -416,6 +448,7 @@ st.markdown("""
     miraclib. This subset captures the pre-treatment immune state and is the most clinically
     relevant window for identifying predictive biomarkers.
 </div>
+
 """, unsafe_allow_html=True)
 
 m1, m2, m3, m4, m5 = st.columns(5)
@@ -476,48 +509,11 @@ with col_c:
 
 st.markdown('<hr class="divider"/>', unsafe_allow_html=True)
 
+ 
 # ════════════════════════════════════════════════════════════════════════════════
-# SECTION 6 — KEY FINDINGS
+# SECTION 6 — FUTURE DIRECTIONS
 # ════════════════════════════════════════════════════════════════════════════════
 st.markdown('<div class="section-number">Section 06</div>', unsafe_allow_html=True)
-st.markdown('<div class="section-title">Key Findings</div>', unsafe_allow_html=True)
-st.markdown(f"""
-<div class="finding-box">
-    <strong>Finding 1 — No Population Reaches Significance After Correction</strong>
-    After applying Bonferroni correction for five simultaneous comparisons (threshold:
-    p &lt; {corrected_threshold:.4f}), no cell population showed a statistically significant
-    difference in relative frequency between responders and non-responders. This means we
-    cannot yet definitively identify a single immune biomarker of miraclib response from
-    this dataset alone.
-</div>
-<div class="finding-box">
-    <strong>Finding 2 — CD4+ T Cells Show the Strongest Trend</strong>
-    CD4+ T cells returned the lowest p-value across all three statistical tests:
-    Mann-Whitney p = {cd4_row['Mann-Whitney p']}, Brunner-Munzel p = {cd4_row['Brunner-Munzel p']},
-    Welch's T p = {cd4_row["Welch's T p"]}. The Welch's test reaches significance even after
-    Bonferroni correction. The consistency across three independent tests strengthens
-    the case for CD4+ T cells as a candidate biomarker.
-</div>
-<div class="finding-box">
-    <strong>Finding 3 — Effect Sizes Are Small Across All Populations</strong>
-    Effect sizes ranged from 0.012 to 0.064, indicating that while statistical trends exist,
-    the magnitude of difference between groups is modest. No single population is a strong
-    standalone predictor of response in this dataset.
-</div>
-<div class="finding-box">
-    <strong>Finding 4 — Baseline B Cell Count in Male Responders</strong>
-    Among male melanoma patients receiving miraclib, the mean B cell count at baseline
-    (time = 0) was {avg_bcell:,.2f} cells — a specific metric that may serve as a reference
-    point for future biomarker studies.
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown('<hr class="divider"/>', unsafe_allow_html=True)
-
-# ════════════════════════════════════════════════════════════════════════════════
-# SECTION 7 — FUTURE DIRECTIONS
-# ════════════════════════════════════════════════════════════════════════════════
-st.markdown('<div class="section-number">Section 07</div>', unsafe_allow_html=True)
 st.markdown('<div class="section-title">Future Directions</div>', unsafe_allow_html=True)
 st.markdown("""
 <div class="narrative">
@@ -530,9 +526,8 @@ st.markdown("""
 f1, f2, f3, f4 = st.columns(4)
 futures = [
     ("01", "Expand the Cohort", "Increase sample size to improve statistical power. A larger cohort would allow the CD4+ T cell trend (p = 0.0134) to potentially reach robust significance after correction."),
-    ("02", "Investigate CD4+ Subpopulations", "CD4+ T cells are heterogeneous. Breaking them into subtypes (Th1, Th2, Treg, etc.) may reveal a more specific and stronger predictive signal."),
-    ("03", "Longitudinal Analysis", "Examine how cell population frequencies change across timepoints. Treatment-induced changes over time may be more predictive than baseline values alone."),
-    ("04", "Multivariate Modeling", "Build a machine learning model using all five population frequencies simultaneously. A combination may predict response better than any single biomarker."),
+    ("02", "Longitudinal Analysis", "Examine how cell population frequencies change across timepoints. Treatment-induced changes over time may be more predictive than baseline values alone."),
+    ("03", "Multivariate Modeling", "Build a machine learning model using all five population frequencies simultaneously. A combination may predict response better than any single biomarker."),
 ]
 for col, (num, title, desc) in zip([f1, f2, f3, f4], futures):
     with col:
@@ -545,8 +540,3 @@ for col, (num, title, desc) in zip([f1, f2, f3, f4], futures):
         """, unsafe_allow_html=True)
 
 st.markdown("<br/><br/>", unsafe_allow_html=True)
-st.markdown("""
-<div style="border-top: 1px solid #d1d5db; padding-top: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #6b7280;">
-    Miraclib Clinical Trial Analysis &nbsp;|&nbsp; Loblaw Bio &nbsp;|&nbsp; Confidential
-</div>
-""", unsafe_allow_html=True)
