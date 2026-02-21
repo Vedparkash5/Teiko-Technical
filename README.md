@@ -38,7 +38,7 @@ Reads `cell-count.csv` and loads it into a normalized SQLite database. Each subj
 First, I extracted the data from the Database and created two dataframes for each table. I added a total_count column for each cell type for each sample. Then for each sample, I calculated the relative frequency of each immune cell population as a percentage of the total cell count across all five populations. Output is a table with one row per population per sample.
 
 ### Part 3 — Statistical Analysis 
-I compared cell population relative frequencies between responders and non-responders in the melanoma + miraclib + PBMC cohort.<br>
+I compared the cell population relative frequencies between responders and non-responders in the melanoma + miraclib + PBMC cohort.<br>
 
 **Dataframe Creation**<br>
 I joined the 2 tables by subject and filtered it by the constraints set by Bob. Then created a new datafame with the filtered data.<br>
