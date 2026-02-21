@@ -1,1 +1,25 @@
 # Teiko-Technical
+
+# Clinical Trial — Immune Cell Population Analysis For Medicine Effectiveness
+
+By Vedparkash Singh  
+
+---
+
+## Quickstart
+
+### GitHub Codespaces 
+
+1. Open Github Codespaces from the repo 
+4. The database will be created by running `python3 load_data.py`
+5. Run the dashboard:
+   ```bash
+   python -m streamlit run dashboard.py
+   ```
+6. Analysis code for Parts 2-4 can be found on analysis.ipynb Jupyter notebook 
+
+---
+
+## Database Schema
+
+For the relational database, I decided to split the cell-count.csv file into 2 tables. The csv file has all of the data pertaining to the study, which includes experimental methodologies, subject conditions, subject responses, subject cell counts, and subject demographics. I decided to create two tables, one for data involving the subjects and another for data pertaining to the sampled experiment. 
