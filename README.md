@@ -24,6 +24,6 @@ By Vedparkash Singh
 
 I decided to create relational database with 2 tables. The csv file has all of the data pertaining to the study, which includes experimental methodologies, subject conditions, subject responses, subject cell counts, and subject demographics. I decided to create two tables, one for data involving the subjects and another for data pertaining to the sampled experiment. 
 
-I terms of scalability, this system allows the scientists (Bob and Yah) to perform a lot more trials. As trail number grows, new sample data can be added to the samples table without duplicating records into the subjects table. Furthermore, if we want to expand testing to different parameters and measurements, we can add them to our existing tables by creating new columns, both for subjects and samples. For example, if we want to add additional traits such as activity level, weight, etc to each subjects records, they can easily just be appended as new columns. 
+In terms of scalability, this system allows the scientists (Bob and Yah) to perform a lot more trials. As trail number grows, new sample data can be added to the samples table without duplicating records into the subjects table. Furthermore, if we want to expand testing to different parameters and measurements, we can add them to our existing tables by creating new columns, both for subjects and samples. For example, if we want to add additional traits such as activity level, weight, etc to each subjects records, they can easily just be appended as new columns. 
 
 
