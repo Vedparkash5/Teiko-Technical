@@ -44,12 +44,6 @@ Compares cell population relative frequencies between responders and non-respond
 Joined the 2 tables by subject and filtered it by the constraints set by Bob. Then created a new datafame with the filtered data.
 
 Then, I compared the mean and variance statics between responders and non-responders. To further this exploration, I created a boxplot comparing the data distribution between responders and non-responders for each cell type.
-- Null value check
-- Duplicate detection
-- Percentage sum validation (all samples sum to 100%)
-- Group balance assessment
-- Outlier detection (Tukey IQR method)
-- Normality testing (Shapiro-Wilk)
 
 **Statistical tests:**
 First, in order to determine what statistical tests to perform, I analyzed the distribution of data for all data pools using the Shapiro-Wilk Normality Test. The data is mostly not normally distributed. 
