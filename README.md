@@ -17,7 +17,7 @@ By Vedparkash Singh
    ```bash
    python -m streamlit run dashboard.py
    ```
-   You should see a popup on the bottom right corner which says 'Your application running on port 8501 is available'. Click the green button that says open in browser. 
+   You should see a popup on the bottom right corner which says 'Your application running on port 8501 is available'. Click the green button that says open in browser. Dashboard will open on a new page.
 5. Analysis code for Parts 2-4 can be found on analysis.ipynb Jupyter notebook 
 
 ---
